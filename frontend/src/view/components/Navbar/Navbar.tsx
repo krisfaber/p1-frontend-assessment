@@ -28,8 +28,8 @@ export const Navbar = ({ className }: ChildlessBaseComponent) => {
                 <img src="/images/ET-logo.png" alt="Events travel logo" />
             </Grid.Col>
             <Grid.Col span={6} className={classes.linksContainer}>
-                <NavLink href="#">Home</NavLink>
-                <NavLink href="#">Tickets</NavLink>
+                <NavLink href="/">Home</NavLink>
+                <NavLink href="/list-tickets">Tickets</NavLink>
             </Grid.Col>
         </Grid>
     );
