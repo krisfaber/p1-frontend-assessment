@@ -1,9 +1,10 @@
-import { FormProps } from '../interfaces/form';
-import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Alert, Button, Grid, NumberInput, TextInput, Textarea, createStyles } from '@mantine/core';
+import { Controller, useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { Grid, TextInput, NumberInput, Textarea, Button, createStyles } from '@mantine/core';
 import { FormLabel } from '../../view/components/Forms/FormLabel';
+import { FormProps } from '../interfaces/form';
+import { useAppSelector } from '../store/hooks';
 
 const useStyles = createStyles((theme) => ({
     buttonContainer: {
@@ -43,129 +44,146 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
         resolver: zodResolver(schema),
     });
     const { classes } = useStyles();
+    const status = useAppSelector((state) => state.createTicketReducer.status);
+    const error = useAppSelector((state) => state.createTicketReducer.error);
 
     return (
-        <Grid>
-            <Grid.Col span={12}>
-                <Controller
-                    name="email"
-                    control={control}
-                    render={({ field: { onChange, value, name } }) => {
-                        return (
-                            <>
-                                <FormLabel>Email</FormLabel>
-                                <TextInput
-                                    onChange={onChange}
-                                    value={value}
-                                    name={name}
-                                    error={errors.email?.message}
-                                />
-                            </>
-                        );
-                    }}
-                />
-            </Grid.Col>
-            <Grid.Col span={12}>
-                <Controller
-                    name="title"
-                    control={control}
-                    render={({ field: { onChange, value, name } }) => {
-                        return (
-                            <>
-                                <FormLabel>Title</FormLabel>
-                                <TextInput
-                                    onChange={onChange}
-                                    value={value}
-                                    name={name}
-                                    error={errors.title?.message}
-                                />
-                            </>
-                        );
-                    }}
-                />
-            </Grid.Col>
-            <Grid.Col span={12}>
-                <Controller
-                    name="description"
-                    control={control}
-                    render={({ field: { onChange, value, name } }) => {
-                        return (
-                            <>
-                                <FormLabel>Description</FormLabel>
-                                <Textarea
-                                    onChange={onChange}
-                                    value={value}
-                                    name={name}
-                                    error={errors.description?.message}
-                                />
-                            </>
-                        );
-                    }}
-                />
-            </Grid.Col>
-            <Grid.Col span={6}>
-                <Controller
-                    name="price"
-                    control={control}
-                    render={({ field: { onChange, value, name } }) => {
-                        return (
-                            <>
-                                <FormLabel>Price</FormLabel>
-                                <NumberInput
-                                    onChange={onChange}
-                                    value={value}
-                                    name={name}
-                                    error={errors.price?.message}
-                                    precision={2}
-                                    min={0}
-                                    step={0.05}
-                                />
-                            </>
-                        );
-                    }}
-                />
-            </Grid.Col>
-            <Grid.Col span={6}>
-                <Controller
-                    name="amount"
-                    control={control}
-                    render={({ field: { onChange, value, name } }) => {
-                        return (
-                            <>
-                                <FormLabel>Amount of tickets</FormLabel>
-                                <NumberInput
-                                    onChange={onChange}
-                                    value={value}
-                                    name={name}
-                                    error={errors.amount?.message}
-                                />
-                            </>
-                        );
-                    }}
-                />
-            </Grid.Col>
-            <Grid.Col span={12}>
-                <Controller
-                    name="supplier"
-                    control={control}
-                    render={({ field: { onChange, value, name } }) => {
-                        return (
-                            <>
-                                <FormLabel>Supplier</FormLabel>
-                                <TextInput
-                                    onChange={onChange}
-                                    value={value}
-                                    name={name}
-                                    error={errors.supplier?.message}
-                                />
-                            </>
-                        );
-                    }}
-                />
-            </Grid.Col>
-            <Grid.Col span={12} className={classes.buttonContainer}>
-                <Button onClick={handleSubmit(onSubmit)}>Add tickets</Button>
-            </Grid.Col>
-        </Grid>
+        <>
+            {status === 'failed' && (
+                <Alert mb="md" title="Bummer!" color="red">
+                    An error occured while creating ticket
+                    {error && <pre>{error}</pre>}
+                </Alert>
+            )}
+            {status === 'succeeded' && (
+                <Alert mb="md" title="Success!" color="green">
+                    Your ticket was created successfully!
+                </Alert>
+            )}
+            <Grid>
+                <Grid.Col span={12}>
+                    <Controller
+                        name="email"
+                        control={control}
+                        render={({ field: { onChange, value, name } }) => {
+                            return (
+                                <>
+                                    <FormLabel>Email</FormLabel>
+                                    <TextInput
+                                        onChange={onChange}
+                                        value={value}
+                                        name={name}
+                                        error={errors.email?.message}
+                                    />
+                                </>
+                            );
+                        }}
+                    />
+                </Grid.Col>
+                <Grid.Col span={12}>
+                    <Controller
+                        name="title"
+                        control={control}
+                        render={({ field: { onChange, value, name } }) => {
+                            return (
+                                <>
+                                    <FormLabel>Title</FormLabel>
+                                    <TextInput
+                                        onChange={onChange}
+                                        value={value}
+                                        name={name}
+                                        error={errors.title?.message}
+                                    />
+                                </>
+                            );
+                        }}
+                    />
+                </Grid.Col>
+                <Grid.Col span={12}>
+                    <Controller
+                        name="description"
+                        control={control}
+                        render={({ field: { onChange, value, name } }) => {
+                            return (
+                                <>
+                                    <FormLabel>Description</FormLabel>
+                                    <Textarea
+                                        onChange={onChange}
+                                        value={value}
+                                        name={name}
+                                        error={errors.description?.message}
+                                    />
+                                </>
+                            );
+                        }}
+                    />
+                </Grid.Col>
+                <Grid.Col span={6}>
+                    <Controller
+                        name="price"
+                        control={control}
+                        render={({ field: { onChange, value, name } }) => {
+                            return (
+                                <>
+                                    <FormLabel>Price</FormLabel>
+                                    <NumberInput
+                                        onChange={onChange}
+                                        value={value}
+                                        name={name}
+                                        error={errors.price?.message}
+                                        precision={2}
+                                        min={0}
+                                        step={0.05}
+                                    />
+                                </>
+                            );
+                        }}
+                    />
+                </Grid.Col>
+                <Grid.Col span={6}>
+                    <Controller
+                        name="amount"
+                        control={control}
+                        render={({ field: { onChange, value, name } }) => {
+                            return (
+                                <>
+                                    <FormLabel>Amount of tickets</FormLabel>
+                                    <NumberInput
+                                        onChange={onChange}
+                                        value={value}
+                                        name={name}
+                                        error={errors.amount?.message}
+                                    />
+                                </>
+                            );
+                        }}
+                    />
+                </Grid.Col>
+                <Grid.Col span={12}>
+                    <Controller
+                        name="supplier"
+                        control={control}
+                        render={({ field: { onChange, value, name } }) => {
+                            return (
+                                <>
+                                    <FormLabel>Supplier</FormLabel>
+                                    <TextInput
+                                        onChange={onChange}
+                                        value={value}
+                                        name={name}
+                                        error={errors.supplier?.message}
+                                    />
+                                </>
+                            );
+                        }}
+                    />
+                </Grid.Col>
+                <Grid.Col span={12} className={classes.buttonContainer}>
+                    <Button loading={status === 'loading'} onClick={handleSubmit(onSubmit)}>
+                        Add tickets
+                    </Button>
+                </Grid.Col>
+            </Grid>
+        </>
     );
 };
