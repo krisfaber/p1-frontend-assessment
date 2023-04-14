@@ -1,3 +1,7 @@
+# IMPORTANT! Environment Setup
+
+Duplicate the `.env.sample` file and modify the variables to suit the application environment (i.e. `env.local`). More info can be found [here](https://create-react-app.dev/docs/adding-custom-environment-variables/)
+
 # Events Travel Frontend assignment
 
 This repo contains the frontend assignment for applicants. We would like to use this assignment to get some insight into your process of thought. You don't have to worry, you can not fail this assignment as it's not a test. We like to use this assignment as a starting point for the interview conversation 🙂
