@@ -30,8 +30,6 @@ export const TicketsListPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps -- `dispatch` does not mutate
     }, []);
 
-    console.log('data', data);
-
     return (
         <PageLayout>
             <Center>
