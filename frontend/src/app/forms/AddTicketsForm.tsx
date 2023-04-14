@@ -1,7 +1,8 @@
-import React from 'react';
 import { FormProps } from '../interfaces/form';
 import { useForm, Controller } from 'react-hook-form';
-import { Grid, Input, Textarea, Button, createStyles } from '@mantine/core';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Grid, TextInput, NumberInput, Textarea, Button, createStyles } from '@mantine/core';
 import { FormLabel } from '../../view/components/Forms/FormLabel';
 
 const useStyles = createStyles((theme) => ({
@@ -12,26 +13,35 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-export interface AddTicketsFormValues {
-    email: string;
-    title: string;
-    description: string;
-    price: string;
-    amount: number;
-    supplier: string;
-}
+export type AddTicketsFormValues = z.infer<typeof schema>;
+
+const schema = z.object({
+    email: z.string().email(),
+    title: z.string().nonempty(),
+    description: z.string().nonempty(),
+    price: z.number().min(0),
+    amount: z.number().min(1),
+    supplier: z.string().nonempty(),
+});
 
 const defaultValues: AddTicketsFormValues = {
     email: '',
     title: '',
     description: '',
-    price: '',
+    price: 0,
     amount: 1,
     supplier: '',
 };
 
 export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) => {
-    const { control, handleSubmit } = useForm<AddTicketsFormValues>({ defaultValues });
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<AddTicketsFormValues>({
+        defaultValues,
+        resolver: zodResolver(schema),
+    });
     const { classes } = useStyles();
 
     return (
@@ -44,7 +54,12 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
                         return (
                             <>
                                 <FormLabel>Email</FormLabel>
-                                <Input onChange={onChange} value={value} name={name} />
+                                <TextInput
+                                    onChange={onChange}
+                                    value={value}
+                                    name={name}
+                                    error={errors.email?.message}
+                                />
                             </>
                         );
                     }}
@@ -58,7 +73,12 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
                         return (
                             <>
                                 <FormLabel>Title</FormLabel>
-                                <Input onChange={onChange} value={value} name={name} />
+                                <TextInput
+                                    onChange={onChange}
+                                    value={value}
+                                    name={name}
+                                    error={errors.title?.message}
+                                />
                             </>
                         );
                     }}
@@ -72,7 +92,12 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
                         return (
                             <>
                                 <FormLabel>Description</FormLabel>
-                                <Textarea onChange={onChange} value={value} name={name} />
+                                <Textarea
+                                    onChange={onChange}
+                                    value={value}
+                                    name={name}
+                                    error={errors.description?.message}
+                                />
                             </>
                         );
                     }}
@@ -86,11 +111,14 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
                         return (
                             <>
                                 <FormLabel>Price</FormLabel>
-                                <Input
-                                    type="number"
+                                <NumberInput
                                     onChange={onChange}
                                     value={value}
                                     name={name}
+                                    error={errors.price?.message}
+                                    precision={2}
+                                    min={0}
+                                    step={0.05}
                                 />
                             </>
                         );
@@ -105,11 +133,11 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
                         return (
                             <>
                                 <FormLabel>Amount of tickets</FormLabel>
-                                <Input
-                                    type="number"
+                                <NumberInput
                                     onChange={onChange}
                                     value={value}
                                     name={name}
+                                    error={errors.amount?.message}
                                 />
                             </>
                         );
@@ -124,7 +152,12 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
                         return (
                             <>
                                 <FormLabel>Supplier</FormLabel>
-                                <Input onChange={onChange} value={value} name={name} />
+                                <TextInput
+                                    onChange={onChange}
+                                    value={value}
+                                    name={name}
+                                    error={errors.supplier?.message}
+                                />
                             </>
                         );
                     }}
