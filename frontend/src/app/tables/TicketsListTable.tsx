@@ -1,32 +1,28 @@
-import React from 'react';
 import { Table } from '@mantine/core';
-
-export interface TicketsListTableItemVM {
-    id: string;
-    email: string;
-    title: string;
-    description: string;
-    price: string;
-    amount: number;
-    supplier: string;
-}
+import { Ticket } from '../../data/models/Ticket';
 
 interface TicketsListTableProps {
-    items: TicketsListTableItemVM[];
+    items: Ticket[];
 }
 
-export const TicketsListTable = ({ items }: TicketsListTableProps) => {
-    const rows = items.map((element) => (
-        <tr key={element.id}>
-            <td>{element.email}</td>
-            <td>{element.title}</td>
-            <td>{element.description}</td>
-            <td>{element.price}</td>
-            <td>{element.amount}</td>
-            <td>{element.supplier}</td>
-        </tr>
-    ));
+const Rows = ({ items }: { items: Ticket[] }) => {
+    return (
+        <>
+            {items.map((element) => (
+                <tr key={element.id}>
+                    <td>{element.email}</td>
+                    <td>{element.title}</td>
+                    <td>{element.description}</td>
+                    <td>{element.price}</td>
+                    <td>{element.amount}</td>
+                    <td>{element.supplier}</td>
+                </tr>
+            ))}
+        </>
+    );
+};
 
+export const TicketsListTable = ({ items }: TicketsListTableProps) => {
     return (
         <Table>
             <thead>
@@ -39,7 +35,9 @@ export const TicketsListTable = ({ items }: TicketsListTableProps) => {
                     <th>Supplier</th>
                 </tr>
             </thead>
-            <tbody>{rows}</tbody>
+            <tbody>
+                <Rows items={items} />
+            </tbody>
         </Table>
     );
 };
