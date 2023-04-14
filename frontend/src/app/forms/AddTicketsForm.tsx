@@ -19,10 +19,10 @@ export type AddTicketsFormValues = z.infer<typeof schema>;
 const schema = z.object({
     email: z.string().email(),
     title: z.string().nonempty(),
-    description: z.string().nonempty(),
+    description: z.string(),
     price: z.number().min(0),
     amount: z.number().min(1),
-    supplier: z.string().nonempty(),
+    supplier: z.string(),
 });
 
 const defaultValues: AddTicketsFormValues = {
