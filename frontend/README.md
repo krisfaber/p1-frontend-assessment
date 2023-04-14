@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Environment Setup
+
+Duplicate the `.env.sample` file and modify the variables to suit the application environment. More info can be found [here](https://create-react-app.dev/docs/adding-custom-environment-variables/)
+
 ## Available Scripts
 
 In the project directory, you can run:
