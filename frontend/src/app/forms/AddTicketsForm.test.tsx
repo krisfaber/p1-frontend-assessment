@@ -46,8 +46,8 @@ describe('AddTicketsForm Functionality', () => {
 
         const invalidValues = {
             ...validValues,
-            email: "not_an_email"
-        }
+            email: 'not_an_email',
+        };
 
         for (let input of inputs) {
             const value = invalidValues[input.name as keyof AddTicketsFormValues];
@@ -60,6 +60,32 @@ describe('AddTicketsForm Functionality', () => {
 
         await waitFor(() => {
             expect(onSubmit_Mock).not.toHaveBeenCalled();
+        });
+    });
+
+    it('displays error messages on relevant form control', async () => {
+        render(<AddTicketsForm onSubmit={onSubmit_Mock} />);
+
+        const inputs = screen.getAllByRole('textbox') as HTMLInputElement[];
+        const submitBtn = screen.getByRole('button') as HTMLButtonElement;
+
+        const invalidValues = {
+            ...validValues,
+            email: 'not_an_email',
+        };
+
+        for (let input of inputs) {
+            const value = invalidValues[input.name as keyof AddTicketsFormValues];
+            if (value !== undefined) {
+                fireEvent.input(input, { target: { value } });
+            }
+        }
+
+        fireEvent.click(submitBtn);
+
+        await waitFor(() => {
+            const [emailInput] = inputs;
+            expect(emailInput.parentElement?.nextElementSibling?.textContent).toBe('Invalid email');
         });
     });
 });
