@@ -69,8 +69,9 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
                         render={({ field: { onChange, value, name } }) => {
                             return (
                                 <>
-                                    <FormLabel>Email</FormLabel>
+                                    <FormLabel htmlFor="addticketsform_email">Email</FormLabel>
                                     <TextInput
+                                        id="addticketsform_email"
                                         onChange={onChange}
                                         value={value}
                                         name={name}
@@ -88,8 +89,9 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
                         render={({ field: { onChange, value, name } }) => {
                             return (
                                 <>
-                                    <FormLabel>Title</FormLabel>
+                                    <FormLabel htmlFor="addticketsform_title">Title</FormLabel>
                                     <TextInput
+                                        id="addticketsform_title"
                                         onChange={onChange}
                                         value={value}
                                         name={name}
@@ -107,8 +109,11 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
                         render={({ field: { onChange, value, name } }) => {
                             return (
                                 <>
-                                    <FormLabel>Description</FormLabel>
+                                    <FormLabel htmlFor="addticketsform_description">
+                                        Description
+                                    </FormLabel>
                                     <Textarea
+                                        id="addticketsform_description"
                                         onChange={onChange}
                                         value={value}
                                         name={name}
@@ -126,8 +131,9 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
                         render={({ field: { onChange, value, name } }) => {
                             return (
                                 <>
-                                    <FormLabel>Price</FormLabel>
+                                    <FormLabel htmlFor="addticketsform_price">Price</FormLabel>
                                     <NumberInput
+                                        id="addticketsform_price"
                                         onChange={onChange}
                                         value={value}
                                         name={name}
@@ -148,8 +154,11 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
                         render={({ field: { onChange, value, name } }) => {
                             return (
                                 <>
-                                    <FormLabel>Amount of tickets</FormLabel>
+                                    <FormLabel htmlFor="addticketsform_amount">
+                                        Amount of tickets
+                                    </FormLabel>
                                     <NumberInput
+                                        id="addticketsform_amount"
                                         onChange={onChange}
                                         value={value}
                                         name={name}
@@ -167,8 +176,9 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
                         render={({ field: { onChange, value, name } }) => {
                             return (
                                 <>
-                                    <FormLabel>Supplier</FormLabel>
+                                    <FormLabel htmlFor="addticketsform_supplier">Supplier</FormLabel>
                                     <TextInput
+                                        id="addticketsform_supplier"
                                         onChange={onChange}
                                         value={value}
                                         name={name}
