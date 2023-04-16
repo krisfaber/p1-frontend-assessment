@@ -38,6 +38,7 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
     const {
         control,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm<AddTicketsFormValues>({
         defaultValues,
@@ -179,7 +180,13 @@ export const AddTicketsForm = ({ onSubmit }: FormProps<AddTicketsFormValues>) =>
                     />
                 </Grid.Col>
                 <Grid.Col span={12} className={classes.buttonContainer}>
-                    <Button loading={status === 'loading'} onClick={handleSubmit(onSubmit)}>
+                    <Button
+                        loading={status === 'loading'}
+                        onClick={handleSubmit((data) => {
+                            onSubmit(data);
+                            reset();
+                        })}
+                    >
                         Add tickets
                     </Button>
                 </Grid.Col>
