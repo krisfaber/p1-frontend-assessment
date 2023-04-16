@@ -26,3 +26,11 @@ The [cors](https://github.com/expressjs/cors) package has been used on the API p
 ### Potential Improvements
 
 Move away from using redux to store and dispatch data to and from the API in favour of React Query for a more concise codebase and the exposure of more features such as caching.
+
+### Node Version
+
+This application was most likely bootstrapped with Node.js version 16 and doesn't play well with the most recent LTS. An `.nvmrc` file has been added to the root to automatically switch the version for developers running NVM and have it configured to switch the node version.
+
+### Updated libraries
+
+Libraries that received minor/patch updates have been bumped up to their latest versions.
