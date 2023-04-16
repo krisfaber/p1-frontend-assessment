@@ -50,11 +50,20 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.21.4",
     "@types/jest": "^29.5.0",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.35",
     "@types/react-dom": "^18.0.11",
     "prettier": "^2.8.7",
     "typescript": "^5.0.4"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!@axios)/"
+    ]
   }
 }
