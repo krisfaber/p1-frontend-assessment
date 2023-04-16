@@ -12,7 +12,7 @@ Duplicate the `.env.sample` file and modify the variables to suit the applicatio
 - [Mantine UI](https://mantine.dev/)
 - [Redux toolkit](https://redux-toolkit.js.org/)
 - [React Router](https://reactrouter.com/en/main)
-- [Zod](https://zod.dev/) (Used instead of the recommended Yup library for better typesafety adn better DX)
+- [Zod](https://zod.dev/) (Used instead of the recommended Yup library for better typesafety and better DX)
 
 ## Setup
 
